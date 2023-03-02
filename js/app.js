@@ -19,17 +19,29 @@ const displayAiData = (data) => {
         aiDiv.innerHTML = `
         
         <div class="card h-100 p-2">
-            <img src="" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                    additional content. This content is a little bit longer.</p>
+            <img  src="${data.image}" class="card-img-top img-fluid h-100 rounded" alt="...">
+            <div class="card-body p-0 py-3">
+                <h5 class="card-title">Features</h5>
+               
+                    <p class="card-text">1. ${data.features[0]}</p>
+                    <p class="card-text">2. ${data.features[1]}</p>
+                    <p class="card-text">3. ${data.features[2]}</p>
+       
+            </div >
+            <div class="card-footer p-0 py-3 d-flex align-items-center justify-content-between">
+                <div>
+                    <h5 class="card-title">${data.name}</h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <p class="card-text">${data.published_in}</p>
+                    </div>
+                </div>
+                <div class="text-danger">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
             </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-    </div>
-        `
+        </div >
+    `
 
         aiCardContainer.appendChild(aiDiv);
     })
