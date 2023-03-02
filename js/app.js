@@ -1,4 +1,5 @@
 const loadAiData = async (dataLimit) => {
+
     const url = `https://openapi.programming-hero.com/api/ai/tools`;
     const res = await fetch(url);
     const data = await res.json();
@@ -45,16 +46,39 @@ const displayAiData = (data, dataLimit) => {
     `
 
         aiCardContainer.appendChild(aiDiv);
-    })
+    });
+    toggleSpinner(false);
+
 }
 
-loadAiData(6);
 
 
 // see more event handler 
 const seeMoreBtn = document.getElementById('see-more');
 seeMoreBtn.addEventListener('click', function () {
     // console.log('see more button clicked');
-    loadAiData(10);
+    setTimeout(() => {
+        loadAiData(10);
+    }, 2000)
+    toggleSpinner(true);
     seeMoreBtn.classList.add('d-none');
 })
+
+// spinner arrow function
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if (isLoading) {
+        loaderSection.classList.remove('d-none');
+    } else {
+        loaderSection.classList.add('d-none')
+    }
+}
+
+// load event handler for spinner
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        loadAiData(6);
+    }, 2000)
+    toggleSpinner(true);
+
+});
