@@ -39,7 +39,7 @@ const displayAiData = (data, dataLimit) => {
                     </div>
                 </div>
                 <div class="text-danger">
-                    <i class="fa-solid fa-arrow-right"></i>
+                    <i onclick="detailsBtn()" class="cursor fa-solid fa-arrow-right"></i>
                 </div>
             </div>
         </div >
@@ -48,6 +48,14 @@ const displayAiData = (data, dataLimit) => {
         aiCardContainer.appendChild(aiDiv);
     });
     toggleSpinner(false);
+    document.getElementById('sort-by-date').classList.remove('d-none');
+    // console.log(data.length);
+    if (data.length == 10) {
+        document.getElementById('see-more').classList.add('d-none');
+    }
+    else {
+        document.getElementById('see-more').classList.remove('d-none');
+    }
 
 }
 
@@ -82,3 +90,8 @@ window.addEventListener('load', () => {
     toggleSpinner(true);
 
 });
+
+// detailsBtn function 
+function detailsBtn() {
+    console.log('clicked');
+}
