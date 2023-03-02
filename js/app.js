@@ -39,7 +39,7 @@ const displayAiData = (data, dataLimit) => {
                     </div>
                 </div>
                 <div class="text-danger">
-                    <i onclick="detailsBtn()" class="cursor fa-solid fa-arrow-right"></i>
+                    <i onclick="detailsBtn('${data.id}')" class="cursor fa-solid fa-arrow-right" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
                 </div>
             </div>
         </div >
@@ -92,6 +92,7 @@ window.addEventListener('load', () => {
 });
 
 // detailsBtn function 
-function detailsBtn() {
-    console.log('clicked');
+function detailsBtn(id) {
+    // console.log('details btn clicked', id);
+
 }
