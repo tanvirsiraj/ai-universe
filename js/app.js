@@ -17,15 +17,17 @@ const displayAiData = (data, dataLimit) => {
     data.forEach(data => {
         const aiDiv = document.createElement('div');
         aiDiv.classList.add('col');
+        let featureListHtml = ``;
+        data.features.forEach((feature, index) => {
+            featureListHtml += `<p class="card-text">${index + 1}. ${feature}</p>`
+        })
         aiDiv.innerHTML = `
         
         <div class="card h-100 p-2">
             <img  src="${data.image}" class="card-img-top img-fluid h-100 rounded" alt="...">
             <div class="card-body p-0 py-3">
                 <h5 class="card-title">Features</h5>
-                <p class="card-text">1. ${data.features[0]}</p>
-                <p class="card-text">2. ${data.features[1]}</p>
-                <p class="card-text">3. ${data.features[2]}</p>
+                ${featureListHtml}
             </div >
             <div class="card-footer p-0 py-3 d-flex align-items-center justify-content-between">
                 <div>
@@ -71,20 +73,33 @@ function displayDetails(data) {
     const modalCardLeft = document.getElementById('modal-card-left');
     const modalCardRight = document.getElementById('modal-card-right');
 
+    let pricingHtml = ``;
+    const colors = ['text-success', 'text-warning', 'text-danger'];
+    const pricingPackageName = ['Basic', 'Pro', 'Enterprise'];
+
+    let i;
+    data.pricing ? data.pricing.forEach((package, index) => {
+        const price = ['0', 'no cost'].includes(package.price.toString().toLowerCase()) ? "Free of Cost" : package.price;
+        pricingHtml += `
+        <div class="text-center ${colors[index]} shadow-lg p-2 border rounded mb-2">
+            <h5>${price}</h5>
+            <h5>${pricingPackageName[index]}</h5>
+        </div>
+        `
+        i = index;
+    }) : pricingHtml += `
+    <div class="text-center ${colors[i]} shadow-lg p-2 border rounded mb-2">
+        <h5>Free of Cost</h5>
+        <h5>${pricingPackageName[i]}</h5>
+    </div>
+    `
+
     modalCardLeft.innerHTML = `
         <h5 class="card-title">${data.description}</h5>
         <div class="d-md-flex justify-content-between my-3">
-           <div class="text-center text-success shadow-lg p-2 border rounded mb-2">
-                ${data.pricing ? `<h5>${data.pricing[0].price}</h5><h5>Basic</h5>` : `<h5>Free of Cost</h5>`}
-           </div>
-           <div class="text-center text-warning shadow-lg p-2 border rounded mb-2">
-                ${data.pricing ? `<h5>${data.pricing[1].price}</h5><h5>Pro</h5>` : `<h5>Free of Cost</h5>`}
-           </div>
-           <div class="text-center text-danger shadow-lg p-2 border rounded mb-2">
-                ${data.pricing ? `<h5>${data.pricing[2].price}</h5><h5>Enterprise</h5>` : `<h5>Free of Cost</h5>`}
-           </div>
+           ${pricingHtml}
         </div>
-    `
+    `;
     modalCardRight.innerHTML = `
             <img class="img-fluid" src="${data.image_link[0]}">
     `
