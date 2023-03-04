@@ -84,7 +84,7 @@ function displayDetails(data) {
         <div class="text-center ${colors[index]} shadow-lg p-2 border rounded mb-2">
             <h5>${price}</h5>
             <h5>${pricingPackageName[index]}</h5>
-        </div>
+        </div> 
         `
         i = index;
     }) : pricingHtml += `
@@ -94,11 +94,23 @@ function displayDetails(data) {
     </div>
     `
 
+    let featureHtmlForModal = ``;
+    // console.log(data.features[1].feature_name);
+    const keys = Object.keys(data.features);
+    keys.forEach(key => {
+        // console.log(key, data.features[key].feature_name)
+        featureHtmlForModal += `<li>${data.features[key].feature_name}`;
+
+    })
+
     modalCardLeft.innerHTML = `
         <h5 class="card-title">${data.description}</h5>
         <div class="d-md-flex justify-content-between my-3">
+        
            ${pricingHtml}
         </div>
+        <h5 class="card-title">Features</h5>
+        ${featureHtmlForModal}
     `;
     modalCardRight.innerHTML = `
             <img class="img-fluid" src="${data.image_link[0]}">
