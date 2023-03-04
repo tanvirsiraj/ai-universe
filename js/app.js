@@ -4,7 +4,6 @@ const loadAiData = async (dataLimit) => {
     const res = await fetch(url);
     const data = await res.json();
     displayAiData(data.data.tools, dataLimit);
-
 }
 
 const displayAiData = (data, dataLimit) => {
@@ -24,11 +23,9 @@ const displayAiData = (data, dataLimit) => {
             <img  src="${data.image}" class="card-img-top img-fluid h-100 rounded" alt="...">
             <div class="card-body p-0 py-3">
                 <h5 class="card-title">Features</h5>
-               
-                    <p class="card-text">1. ${data.features[0]}</p>
-                    <p class="card-text">2. ${data.features[1]}</p>
-                    <p class="card-text">3. ${data.features[2]}</p>
-       
+                <p class="card-text">1. ${data.features[0]}</p>
+                <p class="card-text">2. ${data.features[1]}</p>
+                <p class="card-text">3. ${data.features[2]}</p>
             </div >
             <div class="card-footer p-0 py-3 d-flex align-items-center justify-content-between">
                 <div>
@@ -39,7 +36,7 @@ const displayAiData = (data, dataLimit) => {
                     </div>
                 </div>
                 <div class="text-danger">
-                    <i onclick="detailsBtn('${data.id}')" class="cursor fa-solid fa-arrow-right" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                    <i onclick="loadAiCardDetails('${data.id}')" class="cursor fa-solid fa-arrow-right" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
                 </div>
             </div>
         </div >
@@ -50,23 +47,70 @@ const displayAiData = (data, dataLimit) => {
     toggleSpinner(false);
     document.getElementById('sort-by-date').classList.remove('d-none');
     // console.log(data.length);
-    if (data.length == 10) {
+
+    if (data.length == 12) {
         document.getElementById('see-more').classList.add('d-none');
     }
+
     else {
         document.getElementById('see-more').classList.remove('d-none');
     }
 
 }
 
+const loadAiCardDetails = async id => {
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayDetails(data.data);
 
+}
+// detailsBtn function 
+function displayDetails(data) {
+    console.log('details btn clicked', data);
+    const modalCardLeft = document.getElementById('modal-card-left');
+    const modalCardRight = document.getElementById('modal-card-right');
+
+    modalCardLeft.innerHTML = `
+        <h5 class="card-title">${data.description}</h5>
+        <div class="d-flex justify-content-around">
+            
+        </div>
+    `
+    modalCardRight.innerHTML = `
+        <img class="img-fluid" src="${data.image_link[0]}">
+        
+    `
+
+}
+
+
+const sortByDate = document.getElementById('sort-by-date');
+// sort by date event handler 
+sortByDate.addEventListener('click', function () {
+    // console.log('sort by date clicked');
+
+    const url = `https://openapi.programming-hero.com/api/ai/tools`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displaySortData(data.data.tools))
+    const displaySortData = (data) => {
+        // console.log(data);
+        displayAiData(data.sort(customSort), 12);
+    }
+
+    const customSort = (a, b) => {
+        return new Date(a.published_in).valueOf() - new Date(b.published_in).valueOf();
+    }
+
+})
 
 // see more event handler 
 const seeMoreBtn = document.getElementById('see-more');
 seeMoreBtn.addEventListener('click', function () {
     // console.log('see more button clicked');
     setTimeout(() => {
-        loadAiData(10);
+        loadAiData(12);
     }, 2000)
     toggleSpinner(true);
     seeMoreBtn.classList.add('d-none');
@@ -91,8 +135,3 @@ window.addEventListener('load', () => {
 
 });
 
-// detailsBtn function 
-function detailsBtn(id) {
-    // console.log('details btn clicked', id);
-
-}
