@@ -127,8 +127,20 @@ function displayDetails(data) {
         
        
     `;
+
+    let questionAnswerHtml = ``;
+    data.input_output_examples ? questionAnswerHtml = `
+            <h5 class="card-title">${data.input_output_examples[0].input}</h5>
+            <p class="card-text">${data.input_output_examples[0].output}<p>
+    `: questionAnswerHtml = `
+        <h5 class="card-title">Can you give any example?</h5>
+        <p class="card-text">No! Not Yet! Take a break!!!<p>
+    `
     modalCardRight.innerHTML = `
             <img class="img-fluid" src="${data.image_link[0]}">
+            <div class="text-center mt-3">
+                ${questionAnswerHtml}
+            </div>
     `
 
 }
