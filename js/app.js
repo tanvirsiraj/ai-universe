@@ -73,13 +73,20 @@ function displayDetails(data) {
 
     modalCardLeft.innerHTML = `
         <h5 class="card-title">${data.description}</h5>
-        <div class="d-flex justify-content-around">
-            
+        <div class="d-md-flex justify-content-between my-3">
+           <div class="text-center text-success shadow-lg p-2 border rounded mb-2">
+                ${data.pricing ? `<h5>${data.pricing[0].price}</h5><h5>Basic</h5>` : `<h5>Free of Cost</h5>`}
+           </div>
+           <div class="text-center text-warning shadow-lg p-2 border rounded mb-2">
+                ${data.pricing ? `<h5>${data.pricing[1].price}</h5><h5>Pro</h5>` : `<h5>Free of Cost</h5>`}
+           </div>
+           <div class="text-center text-danger shadow-lg p-2 border rounded mb-2">
+                ${data.pricing ? `<h5>${data.pricing[2].price}</h5><h5>Enterprise</h5>` : `<h5>Free of Cost</h5>`}
+           </div>
         </div>
     `
     modalCardRight.innerHTML = `
-        <img class="img-fluid" src="${data.image_link[0]}">
-        
+            <img class="img-fluid" src="${data.image_link[0]}">
     `
 
 }
