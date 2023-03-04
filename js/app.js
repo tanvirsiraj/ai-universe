@@ -103,14 +103,29 @@ function displayDetails(data) {
 
     })
 
+    let integrationHtml = ``;
+    data.integrations ? data.integrations.forEach(item => {
+        integrationHtml += `<li>${item}</li>`;
+    }) : integrationHtml = "No data Found";
+
     modalCardLeft.innerHTML = `
         <h5 class="card-title">${data.description}</h5>
         <div class="d-md-flex justify-content-between my-3">
         
            ${pricingHtml}
         </div>
-        <h5 class="card-title">Features</h5>
-        ${featureHtmlForModal}
+        <div class="d-md-flex justify-content-between ">
+            <div>
+                <h5 class="card-title">Features</h5>
+                ${featureHtmlForModal}
+            </div>
+            <div>
+                <h5 class="card-title">Integrations</h5>
+                ${integrationHtml}
+            </div>
+        </div>
+        
+       
     `;
     modalCardRight.innerHTML = `
             <img class="img-fluid" src="${data.image_link[0]}">
