@@ -136,8 +136,17 @@ function displayDetails(data) {
         <h5 class="card-title">Can you give any example?</h5>
         <p class="card-text">No! Not Yet! Take a break!!!<p>
     `
+
+    let accuracyHtml = ``;
+    (data.accuracy && data.accuracy.score !== null) ? accuracyHtml = `
+    <button type="button" class="btn btn-danger accuracy-btn fw-semibold">${(data.accuracy.score) * 100}% accuracy</button>
+    `: accuracyHtml = ``;
+
     modalCardRight.innerHTML = `
-            <img class="img-fluid" src="${data.image_link[0]}">
+            <div class="accuracy-block">
+                <img class="img-fluid rounded" src="${data.image_link[0]}">
+                ${accuracyHtml}
+            </div>
             <div class="text-center mt-3">
                 ${questionAnswerHtml}
             </div>
