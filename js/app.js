@@ -13,7 +13,7 @@ const displayAiData = (data, dataLimit) => {
     aiCardContainer.innerHTML = '';
     // display 6 data by default
     data = data.slice(0, dataLimit);
-    console.log(data);
+    // console.log(data);
     data.forEach(data => {
         const aiDiv = document.createElement('div');
         aiDiv.classList.add('col');
@@ -46,6 +46,7 @@ const displayAiData = (data, dataLimit) => {
 
         aiCardContainer.appendChild(aiDiv);
     });
+
     toggleSpinner(false);
     document.getElementById('sort-by-date').classList.remove('d-none');
     // console.log(data.length);
@@ -60,6 +61,7 @@ const displayAiData = (data, dataLimit) => {
 
 }
 
+
 const loadAiCardDetails = async id => {
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
     const res = await fetch(url);
@@ -67,9 +69,11 @@ const loadAiCardDetails = async id => {
     displayDetails(data.data);
 
 }
+
+
 // detailsBtn function 
 function displayDetails(data) {
-    console.log('details btn clicked', data);
+    // console.log('details btn clicked', data);
     const modalCardLeft = document.getElementById('modal-card-left');
     const modalCardRight = document.getElementById('modal-card-right');
 
@@ -87,11 +91,25 @@ function displayDetails(data) {
         </div> 
         `
         i = index;
-    }) : pricingHtml += `
-    <div class="text-center ${colors[i]} shadow-lg p-2 border rounded mb-2">
-        <h5>Free of Cost</h5>
-        <h5>${pricingPackageName[i]}</h5>
-    </div>
+    }) : pricingHtml = `
+    <div class="text-center ${colors[0]} shadow-lg p-2 border rounded mb-2">
+        <div>
+            <h5>Free of Cost</h5>
+            <h5>${pricingPackageName[0]}</h5>
+        </div>
+    </div> 
+    <div class="text-center ${colors[1]} shadow-lg p-2 border rounded mb-2">
+        <div>
+            <h5>Free of Cost</h5>
+            <h5>${pricingPackageName[1]}</h5>
+        </div>
+    </div> 
+    <div class="text-center ${colors[2]} shadow-lg p-2 border rounded mb-2">
+        <div>
+            <h5>Free of Cost</h5>
+            <h5>${pricingPackageName[2]}</h5>
+        </div>
+    </div> 
     `
 
     let featureHtmlForModal = ``;
